@@ -73,7 +73,6 @@ to quickly create a Cobra application.`,
 				return
 			}
 		}
-		fmt.Printf("Bumped version from %s to %s \n", version, newVersion)
 		newConf := &configuration.Configuration{}
 		viper.Set("version", newVersion)
 		viper.Unmarshal(newConf)
@@ -92,6 +91,13 @@ func bumpVersion(cmd *cobra.Command, version string) (string, error) {
 	if major, _ := cmd.Flags().GetBool("major"); major == true {
 		vType = "major"
 	}
+	if set, _ := cmd.Flags().GetBool("set"); set == true {
+		vType = "set"
+	}
+	if force, _ := cmd.Flags().GetString("force"); force != "" {
+		vType = "force"
+		version = force
+	}
 	return bump(vType, version)
 }
 
@@ -105,10 +111,15 @@ func bump(typ, version string) (string, error) {
 		v.Major++
 	case "minor":
 		v.Minor++
+	case "set", "force":
+		fmt.Println("Set version to", version)
+		return version, nil
 	case "patch":
 		v.Patch++
 	}
-	return v.String(), nil
+	newVersion := v.String()
+	fmt.Printf("Bumped version from %s to %s \n", version, newVersion)
+	return newVersion, nil
 }
 
 // Execute adds all child commands to the root command sets flags appropriately.
@@ -131,6 +142,8 @@ func init() {
 	RootCmd.Flags().BoolP("major", "M", false, "Bump major version")
 	RootCmd.Flags().BoolP("minor", "m", false, "Bump minor version")
 	RootCmd.Flags().BoolP("patch", "p", false, "Bump patch version")
+	RootCmd.Flags().BoolP("set", "s", false, "Set the current version in config file")
+	RootCmd.Flags().StringP("force", "f", "", "Manually select a version")
 	// TODO: support prereleases
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.

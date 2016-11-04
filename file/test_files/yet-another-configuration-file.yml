@@ -6,7 +6,7 @@ dependencies:
   semver: ^5.1.0
 info:
   extra:
-    version: docker-image:2.6.6
+    version: docker-image:0.1.0
 number: 3
 title: Any text
 vendors:
