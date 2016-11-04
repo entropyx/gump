@@ -1,0 +1,16 @@
+authors:
+- Juan
+- Pablo
+dependencies:
+  gulp-bump: ^2.1.0
+  semver: ^5.1.0
+info:
+  extra:
+    version: docker-image:2.6.6
+number: 3
+title: Any text
+vendors:
+- path: github.com/gopherjs/gopherjs
+  rev: e34a5cd6a1bc7c4fde759f2d3039852fc68b5fcc
+- path: github.com/jtolds/gls
+  rev: 8ddce2a84170772b95dd5d576c48d517b22cac63

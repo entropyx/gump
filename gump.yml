@@ -1,0 +1,6 @@
+version: 2.6.6
+files:
+- path: file/test_files/yet-another-configuration-file.yml
+  keys:
+  - info.extra.version
+  prefix: 'docker-image:'
